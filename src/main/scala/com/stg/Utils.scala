@@ -1,7 +1,7 @@
 package com.stg
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.functions.{avg, coalesce, col, count, lit}
+import org.apache.spark.sql.functions.{avg, bround, coalesce, col, count, lit}
 
 object Utils {
   def getReader(format: String): DataReader = {
@@ -28,11 +28,11 @@ object Utils {
       .groupBy("student_code")
       .agg(
         count("exam_grade").alias("exam_count"),
-        avg("exam_grade").alias("avg_grades"))
+        bround(avg("exam_grade"), 2).alias("avg_grades"))
       .filter(col("exam_count") > min_exams)
       .orderBy(col("avg_grades").desc)
       .limit(top_n)
-      .select("student_code")
+      .select("student_code","avg_grades")
   }
 
 }

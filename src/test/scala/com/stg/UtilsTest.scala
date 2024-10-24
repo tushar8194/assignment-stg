@@ -1,7 +1,7 @@
 package com.stg
 
-import org.apache.spark.sql.{SparkSession, Row}
-import org.apache.spark.sql.types.{StructType, StructField, StringType, IntegerType}
+import org.apache.spark.sql.{Row, SparkSession}
+import org.apache.spark.sql.types.{DoubleType, IntegerType, StringType, StructField, StructType}
 
 class UtilsTest extends BaseTest{
 
@@ -52,12 +52,13 @@ class UtilsTest extends BaseTest{
     val actual_df = Utils.topNStudentsCode(10, exams_df, 18, 3)
 
     val data = Seq(
-      Row(64155),
-      Row(12053)
+      Row(64155,25.25),
+      Row(12053,21.5)
     )
 
     val schema = StructType(Array(
-      StructField("student_code", IntegerType, nullable = false)
+      StructField("student_code", IntegerType, nullable = false),
+      StructField("avg_grades", DoubleType, nullable = false)
     ))
 
     val expected_df = spark.createDataFrame(spark.sparkContext.parallelize(data), schema)
