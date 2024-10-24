@@ -14,7 +14,7 @@ class BaseTest extends AnyFunSuite with BeforeAndAfterAll {
     val sparkConf = new SparkConf().setAppName("Testing").setMaster("local")
     spark = SparkSession.builder().config(sparkConf).getOrCreate()
 
-    val loadProp = Map("header" -> "true", "inferSchema" -> "true")
+    val loadProp = Map("header" -> "true", "inferSchema" -> "true","quote" -> "\"", "escape" -> "\\")
     enrollments_df = Utils.getReader("csv").load("src/test/resources/enrollments.csv", loadProp)(spark)
     exams_df = Utils.getReader("csv").load("src/test/resources/exams.csv", loadProp)(spark)
 

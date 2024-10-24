@@ -1,8 +1,7 @@
 package com.stg
 
 import org.apache.spark.SparkConf
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.SparkSession
 
 object Driver {
 
@@ -15,12 +14,9 @@ object Driver {
 
     implicit val implicitSpark: SparkSession = spark
 
-    val loadProp = Map("header" -> "true", "inferSchema" -> "true")
+    val loadProp = Map("header" -> "true", "inferSchema" -> "true","quote" -> "\"", "escape" -> "\\")
     val enrollments_df = Utils.getReader("csv").load("src/main/resources/enrollments.csv", loadProp)
     val exams_df = Utils.getReader("csv").load("src/main/resources/exams.csv", loadProp)
-
-    enrollments_df.printSchema()
-    exams_df.printSchema()
 
     // ================================================Question 1=======================================================
 
@@ -51,7 +47,7 @@ object Driver {
     val top_ten_students = Utils.topNStudentsCode(10, exams_df)
     top_ten_students.write.option("header","true").mode("overwrite").csv("src/main/output/top_ten_students/")
 
-
+    spark.stop()
   }
 
 }

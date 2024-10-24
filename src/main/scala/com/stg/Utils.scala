@@ -25,7 +25,10 @@ object Utils {
   def topNStudentsCode(n : Int, exams_df : DataFrame): DataFrame = {
     exams_df
       .filter(col("exam_grade") >= 18)
-      .groupBy("student_code").agg(count("exam_grade").alias("exam_count"), avg("exam_grade").alias("avg_grades"))
+      .groupBy("student_code")
+      .agg(
+        count("exam_grade").alias("exam_count"),
+        avg("exam_grade").alias("avg_grades"))
       .filter(col("exam_count") > 3)
       .orderBy(col("avg_grades").desc)
       .limit(n)
