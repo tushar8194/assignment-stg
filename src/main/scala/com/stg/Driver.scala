@@ -27,7 +27,7 @@ object Driver {
     val students_df = exams_df.select("student_name","student_code").distinct
     val old_students = Utils.getOldStudents(3, enrollments_df, students_df)
 
-    old_students.write.option("header","true").mode("overwrite").csv("src/main/output/old_students/")
+    old_students.write.option("header","true").mode("overwrite").csv("src/main/output/Question-1/")
 
 
 
@@ -45,7 +45,7 @@ object Driver {
     4. top 10 student code*/
 
     val top_ten_students = Utils.topNStudentsCode(10, exams_df, 18, 3)
-    top_ten_students.write.option("header","true").mode("overwrite").csv("src/main/output/top_ten_students/")
+    top_ten_students.write.option("header","true").mode("overwrite").csv("src/main/output/Question-2/")
 
     spark.stop()
   }

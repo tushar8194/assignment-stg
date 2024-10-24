@@ -24,5 +24,7 @@ Scope of this assigement is limited to CSV data reader. Other reader can be impl
 Utils class is a place for resuable methods. 
 
 
+Output folder contains the output files for two questions.
+
 
 Assumption : that each file is well-formed and valid; they don't contain duplicate or inconsistent data.
