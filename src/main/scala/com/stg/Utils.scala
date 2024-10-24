@@ -22,16 +22,16 @@ object Utils {
       )
   }
 
-  def topNStudentsCode(n : Int, exams_df : DataFrame): DataFrame = {
+  def topNStudentsCode(top_n : Int, exams_df : DataFrame, pass_cutOff : Int, min_exams: Int): DataFrame = {
     exams_df
-      .filter(col("exam_grade") >= 18)
+      .filter(col("exam_grade") >= pass_cutOff)
       .groupBy("student_code")
       .agg(
         count("exam_grade").alias("exam_count"),
         avg("exam_grade").alias("avg_grades"))
-      .filter(col("exam_count") > 3)
+      .filter(col("exam_count") > min_exams)
       .orderBy(col("avg_grades").desc)
-      .limit(n)
+      .limit(top_n)
       .select("student_code")
   }
 

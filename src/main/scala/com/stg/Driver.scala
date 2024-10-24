@@ -44,7 +44,7 @@ object Driver {
     3. sorted descending by average of grade on avg_grade
     4. top 10 student code*/
 
-    val top_ten_students = Utils.topNStudentsCode(10, exams_df)
+    val top_ten_students = Utils.topNStudentsCode(10, exams_df, 18, 3)
     top_ten_students.write.option("header","true").mode("overwrite").csv("src/main/output/top_ten_students/")
 
     spark.stop()

@@ -49,7 +49,7 @@ class UtilsTest extends BaseTest{
 
   test("topNStudentsCode") {
 
-    val actual_df = Utils.topNStudentsCode(10, exams_df)
+    val actual_df = Utils.topNStudentsCode(10, exams_df, 18, 3)
 
     val data = Seq(
       Row(64155),
